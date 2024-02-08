@@ -16,5 +16,6 @@ func CreateList(
 		NewMkdirsCommand(),
 		NewJsonPathCommand(fs),
 		NewUserCommand(),
+		NewPasswordCommand(),
 	}
 }

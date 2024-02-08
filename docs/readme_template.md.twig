@@ -1,0 +1,9 @@
+# quicktool
+
+quicktool - set of development mini tools.
+
+## Commands
+
+| Name           | Description           | Args           |
+|----------------|-----------------------|----------------|{% for command in commands %}
+| {{ command.Name }} | {{ command.Description }} | {% for arg in command.Args %} `{{ arg.Name }}` - {{ arg.Description }} <br/>{% endfor %} |{% endfor %}

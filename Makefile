@@ -9,3 +9,7 @@ build-darwin-arm64:
 
 install: build
 	sudo mv quicktool /usr/local/bin/f
+
+.PHONY: docs
+docs:
+	go run ./docs/main.go

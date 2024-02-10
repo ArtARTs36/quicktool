@@ -13,3 +13,6 @@ install: build
 .PHONY: docs
 docs:
 	go run ./docs/main.go
+
+test:
+	go test ./...

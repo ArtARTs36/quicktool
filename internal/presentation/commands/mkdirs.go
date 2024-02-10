@@ -48,7 +48,7 @@ func (c *Mkdirs) Execute(_ *interaction.Context, env *interaction.Env) error {
 		for i := rangeVal.From; i < rangeVal.To; i++ {
 			name := fmt.Sprintf("%d", i)
 
-			err := os.Mkdir(name, 0700)
+			err = os.Mkdir(name, 0700)
 			if err != nil {
 				return err
 			}
@@ -60,7 +60,7 @@ func (c *Mkdirs) Execute(_ *interaction.Context, env *interaction.Env) error {
 	for i := rangeVal.From; i < rangeVal.To; i++ {
 		name := strings.ReplaceAll(fmask, "{number}", strconv.Itoa(i))
 
-		err := os.MkdirAll(name, 0700)
+		err = os.MkdirAll(name, 0700)
 		if err != nil {
 			return err
 		}

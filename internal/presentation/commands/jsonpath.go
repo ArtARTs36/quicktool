@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 
@@ -15,19 +16,19 @@ import (
 	"github.com/artarts36/quicktool/internal/presentation/interaction"
 )
 
-type JsonPath struct {
+type JSONPath struct {
 	fs filesystem.FileSystem
 }
 
-func NewJsonPathCommand(
+func NewJSONPathCommand(
 	fs filesystem.FileSystem,
-) *JsonPath {
-	return &JsonPath{
+) *JSONPath {
+	return &JSONPath{
 		fs: fs,
 	}
 }
 
-func (c *JsonPath) Definition() *interaction.Definition {
+func (c *JSONPath) Definition() *interaction.Definition {
 	return &interaction.Definition{
 		Name:        "jsonpath",
 		Description: "Get value from json by path",
@@ -46,7 +47,7 @@ func (c *JsonPath) Definition() *interaction.Definition {
 	}
 }
 
-func (c *JsonPath) Execute(_ *interaction.Context, env *interaction.Env) error {
+func (c *JSONPath) Execute(_ *interaction.Context, env *interaction.Env) error {
 	path := env.Input.Argument("path")
 	source := env.Input.Argument("source")
 
@@ -55,6 +56,9 @@ func (c *JsonPath) Execute(_ *interaction.Context, env *interaction.Env) error {
 	}
 
 	sourceJSONVal, err := c.getJSONInterface(source, env)
+	if err != nil {
+		return fmt.Errorf("unable scan json: %s", err.Error())
+	}
 
 	val, err := jsonpath.Get(path, sourceJSONVal)
 	if err != nil {
@@ -66,7 +70,7 @@ func (c *JsonPath) Execute(_ *interaction.Context, env *interaction.Env) error {
 	return nil
 }
 
-func (c *JsonPath) getJSONInterface(source string, env *interaction.Env) (interface{}, error) {
+func (c *JSONPath) getJSONInterface(source string, env *interaction.Env) (interface{}, error) {
 	if source == "" {
 		return c.captureJSONFromInput(env)
 	}
@@ -77,15 +81,26 @@ func (c *JsonPath) getJSONInterface(source string, env *interaction.Env) (interf
 		return c.unmarshalFile(source)
 	}
 
-	resp, err := http.Get(source)
+	sourceURL, err := url.Parse(source)
+	if err != nil {
+		return fmt.Errorf("invalid url: %s", err), nil
+	}
+
+	resp, err := http.DefaultClient.Do(&http.Request{
+		URL: sourceURL,
+	})
 	if err != nil {
 		return nil, fmt.Errorf("unable to execute request: %s", err.Error())
 	}
 
-	return c.unmarshalHttpResponse(resp)
+	if err = resp.Body.Close(); err != nil {
+		return nil, fmt.Errorf("unable to close request: %s", err)
+	}
+
+	return c.unmarshalHTTPResponse(resp)
 }
 
-func (c *JsonPath) captureJSONFromInput(env *interaction.Env) (interface{}, error) {
+func (c *JSONPath) captureJSONFromInput(env *interaction.Env) (interface{}, error) {
 	sourceJSONVal := interface{}(nil)
 	reader := bufio.NewReader(os.Stdin)
 
@@ -103,7 +118,7 @@ func (c *JsonPath) captureJSONFromInput(env *interaction.Env) (interface{}, erro
 	return sourceJSONVal, nil
 }
 
-func (c *JsonPath) unmarshalFile(path string) (interface{}, error) {
+func (c *JSONPath) unmarshalFile(path string) (interface{}, error) {
 	sourceJSONVal := interface{}(nil)
 
 	bs, err := c.fs.GetContent(path)
@@ -119,7 +134,7 @@ func (c *JsonPath) unmarshalFile(path string) (interface{}, error) {
 	return sourceJSONVal, nil
 }
 
-func (c *JsonPath) unmarshalHttpResponse(response *http.Response) (interface{}, error) {
+func (c *JSONPath) unmarshalHTTPResponse(response *http.Response) (interface{}, error) {
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		return nil, fmt.Errorf("unable to read response: %s", err.Error())

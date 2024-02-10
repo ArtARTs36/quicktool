@@ -1,11 +1,12 @@
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/artarts36/quicktool/internal/presentation/commands"
 	"github.com/artarts36/quicktool/internal/presentation/interaction"
 	"github.com/tyler-sommer/stick"
-	"log"
-	"os"
 )
 
 func main() {

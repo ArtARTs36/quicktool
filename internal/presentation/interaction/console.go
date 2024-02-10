@@ -2,9 +2,10 @@ package interaction
 
 import (
 	"fmt"
+	"strings"
+
 	goconsole "github.com/DrSmithFr/go-console"
 	"github.com/DrSmithFr/go-console/input/argument"
-	"strings"
 )
 
 type Console struct {

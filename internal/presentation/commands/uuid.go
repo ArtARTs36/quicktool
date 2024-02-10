@@ -5,21 +5,21 @@ import (
 	"github.com/artarts36/quicktool/internal/presentation/interaction"
 )
 
-type Uuid struct {
+type UUID struct {
 }
 
-func NewUUIDCommand() *Uuid {
-	return &Uuid{}
+func NewUUIDCommand() *UUID {
+	return &UUID{}
 }
 
-func (c *Uuid) Definition() *interaction.Definition {
+func (c *UUID) Definition() *interaction.Definition {
 	return &interaction.Definition{
 		Name:        "uuid",
 		Description: "Generate UUID",
 	}
 }
 
-func (c *Uuid) Execute(_ *interaction.Context, env *interaction.Env) error {
+func (c *UUID) Execute(_ *interaction.Context, env *interaction.Env) error {
 	env.PrintTable(
 		[]string{
 			"version", "value",

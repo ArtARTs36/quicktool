@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+const rangeTokensCount = 2
+
 type Range struct {
 	From int
 	To   int
@@ -13,7 +15,7 @@ type Range struct {
 
 func RangeFromString(value string) (*Range, error) {
 	tokens := strings.Split(value, "-")
-	if len(tokens) != 2 {
+	if len(tokens) != rangeTokensCount {
 		return nil, fmt.Errorf("must be 2 values")
 	}
 

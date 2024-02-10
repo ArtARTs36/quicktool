@@ -2,11 +2,12 @@ package main
 
 import (
 	"context"
+	"log"
+
 	"github.com/artarts36/quicktool/internal/infrastructure/filesystem"
 	"github.com/artarts36/quicktool/internal/infrastructure/repository"
 	"github.com/artarts36/quicktool/internal/presentation/commands"
 	"github.com/artarts36/quicktool/internal/presentation/interaction"
-	"log"
 )
 
 func main() {

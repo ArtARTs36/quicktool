@@ -14,7 +14,7 @@ func CreateList(
 		NewJSONPrettyCommand(),
 		NewTimestampCommand(),
 		NewMkdirsCommand(),
-		NewJsonPathCommand(fs),
+		NewJSONPathCommand(fs),
 		NewUserCommand(),
 		NewPasswordCommand(),
 	}

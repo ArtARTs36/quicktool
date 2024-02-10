@@ -2,6 +2,7 @@ package interaction
 
 import (
 	"context"
+
 	"github.com/artarts36/quicktool/internal/domain"
 )
 

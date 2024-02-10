@@ -13,3 +13,4 @@ quicktool - set of development mini tools.
 | mkdirs | Make directories |  `range` - Range, example "0-20" <br/> `fileMask` - Mask to folder name, example "folder{number}" <br/> |
 | jsonpath | Get value from json by path |  `path` - json path <br/> `source` - json path (string of content, file path) <br/> |
 | user | Get user data |  |
+| password | Generate password |  `length` - length of password <br/> |

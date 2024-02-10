@@ -14,10 +14,21 @@ type Console struct {
 	currentContext *Context
 }
 
-func NewConsole(commands []Command) *Console {
+type AppInfo struct {
+	Name      string
+	Version   string
+	BuildDate string
+}
+
+func NewConsole(appInfo *AppInfo, commands []Command) *Console {
 	console := &Console{}
 	console.cmd = &goconsole.Command{
 		Scripts: console.buildGoConsoleScripts(commands),
+		BuildInfo: &goconsole.BuildInfo{
+			Name:      appInfo.Name,
+			Version:   appInfo.Version,
+			BuildFlag: appInfo.BuildDate,
+		},
 	}
 
 	return console

@@ -10,6 +10,11 @@ import (
 	"github.com/artarts36/quicktool/internal/presentation/interaction"
 )
 
+var (
+	Version   string
+	BuildDate string
+)
+
 func main() {
 	ctx := context.TODO()
 	fs := &filesystem.LocalFileSystem{}
@@ -20,7 +25,11 @@ func main() {
 		log.Printf("unable to get current user: %s", err)
 	}
 
-	console := interaction.NewConsole(commands.CreateList(fs))
+	console := interaction.NewConsole(&interaction.AppInfo{
+		Name:      "quicktool",
+		Version:   Version,
+		BuildDate: BuildDate,
+	}, commands.CreateList(fs))
 
 	console.Run(&interaction.Context{
 		Context: ctx,

@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"github.com/artarts36/quicktool/internal/application"
 	"github.com/artarts36/quicktool/internal/presentation/interaction"
+	"github.com/artarts36/quicktool/internal/shared"
 )
 
 type UUID struct {
@@ -27,15 +27,15 @@ func (c *UUID) Execute(_ *interaction.Context, env *interaction.Env) error {
 		[][]string{
 			{
 				"v4",
-				application.GenerateUUIDV4().String(),
+				shared.GenerateUUIDV4().String(),
 			},
 			{
 				"v6",
-				application.GenerateUUIDV6().String(),
+				shared.GenerateUUIDV6().String(),
 			},
 			{
 				"v7",
-				application.GenerateUUIDV7().String(),
+				shared.GenerateUUIDV7().String(),
 			},
 		},
 	)

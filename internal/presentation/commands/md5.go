@@ -3,7 +3,8 @@ package commands
 import (
 	"fmt"
 
-	"github.com/artarts36/quicktool/internal/application"
+	"github.com/artarts36/quicktool/internal/shared"
+
 	"github.com/artarts36/quicktool/internal/presentation/interaction"
 )
 
@@ -31,7 +32,7 @@ func (c *MD5) Definition() *interaction.Definition {
 func (c *MD5) Execute(_ *interaction.Context, env *interaction.Env) error {
 	source := env.Input.Argument("value")
 
-	hash := application.HashMD5(source)
+	hash := shared.HashMD5(source)
 
 	env.PrintText(fmt.Sprintf("md5: %s", hash))
 

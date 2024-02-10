@@ -1,4 +1,4 @@
-package application
+package shared
 
 import (
 	"crypto/md5"

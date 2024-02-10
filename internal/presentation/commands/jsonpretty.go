@@ -3,7 +3,8 @@ package commands
 import (
 	"fmt"
 
-	"github.com/artarts36/quicktool/internal/application"
+	"github.com/artarts36/quicktool/internal/shared"
+
 	"github.com/artarts36/quicktool/internal/presentation/interaction"
 )
 
@@ -31,7 +32,7 @@ func (c *JSONPretty) Definition() *interaction.Definition {
 func (c *JSONPretty) Execute(_ *interaction.Context, env *interaction.Env) error {
 	source := env.Input.Argument("value")
 
-	json, err := application.PrettyJSON(source)
+	json, err := shared.PrettyJSON(source)
 	if err != nil {
 		return fmt.Errorf("json invalid: %s", err.Error())
 	}

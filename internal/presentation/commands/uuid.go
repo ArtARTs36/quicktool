@@ -8,7 +8,7 @@ import (
 type UUID struct {
 }
 
-func NewUUIDCommand() *UUID {
+func NewUUID() *UUID {
 	return &UUID{}
 }
 

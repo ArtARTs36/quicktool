@@ -11,7 +11,7 @@ import (
 type JSONPretty struct {
 }
 
-func NewJSONPrettyCommand() *JSONPretty {
+func NewJSONPretty() *JSONPretty {
 	return &JSONPretty{}
 }
 

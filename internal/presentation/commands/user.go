@@ -5,7 +5,7 @@ import "github.com/artarts36/quicktool/internal/presentation/interaction"
 type User struct {
 }
 
-func NewUserCommand() *User {
+func NewUser() *User {
 	return &User{}
 }
 

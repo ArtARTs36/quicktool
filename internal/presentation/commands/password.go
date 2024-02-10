@@ -17,7 +17,7 @@ const (
 type Password struct {
 }
 
-func NewPasswordCommand() *Password {
+func NewPassword() *Password {
 	return &Password{}
 }
 

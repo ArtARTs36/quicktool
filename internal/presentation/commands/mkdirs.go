@@ -13,7 +13,7 @@ import (
 type Mkdirs struct {
 }
 
-func NewMkdirsCommand() *Mkdirs {
+func NewMkdirs() *Mkdirs {
 	return &Mkdirs{}
 }
 

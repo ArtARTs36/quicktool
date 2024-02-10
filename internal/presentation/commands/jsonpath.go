@@ -20,7 +20,7 @@ type JSONPath struct {
 	fs filesystem.FileSystem
 }
 
-func NewJSONPathCommand(
+func NewJSONPath(
 	fs filesystem.FileSystem,
 ) *JSONPath {
 	return &JSONPath{

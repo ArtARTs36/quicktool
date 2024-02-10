@@ -11,7 +11,7 @@ import (
 type MD5 struct {
 }
 
-func NewMD5Command() *MD5 {
+func NewMD5() *MD5 {
 	return &MD5{}
 }
 

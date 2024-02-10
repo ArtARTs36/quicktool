@@ -10,7 +10,7 @@ import (
 type Timestamp struct {
 }
 
-func NewTimestampCommand() *Timestamp {
+func NewTimestamp() *Timestamp {
 	return &Timestamp{}
 }
 

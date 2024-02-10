@@ -9,13 +9,13 @@ func CreateList(
 	fs filesystem.FileSystem,
 ) []interaction.Command {
 	return []interaction.Command{
-		NewUUIDCommand(),
-		NewMD5Command(),
-		NewJSONPrettyCommand(),
-		NewTimestampCommand(),
-		NewMkdirsCommand(),
-		NewJSONPathCommand(fs),
-		NewUserCommand(),
-		NewPasswordCommand(),
+		NewUUID(),
+		NewMD5(),
+		NewJSONPretty(),
+		NewTimestamp(),
+		NewMkdirs(),
+		NewJSONPath(fs),
+		NewUser(),
+		NewPassword(),
 	}
 }

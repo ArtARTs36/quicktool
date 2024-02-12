@@ -14,3 +14,4 @@ quicktool - set of development mini tools.
 | jsonpath | Get value from json by path |  `path` - json path <br/> `source` - json path (string of content, file path) <br/> |
 | user | Get user data |  |
 | password | Generate password |  `length` - length of password <br/> |
+| base64 | Base64 encode/decode |  `action` - action <br/> `value` - value to encode or encode <br/> |

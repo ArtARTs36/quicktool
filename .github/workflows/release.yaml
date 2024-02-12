@@ -98,9 +98,10 @@ jobs:
             -X main.Version=${{ steps.values.outputs.version }}
             -X main.BuildDate=${{ steps.values.outputs.timestamp }}
         run: |
-          go build -ldflags "$LDFLAGS" -o "./${{ steps.values.outputs.binary-name }}" ./cmd/main.go && \
-          stat "./${{ steps.values.outputs.binary-name }}" && \
-          GPG_TTY=$(tty) && gpg --detach-sign --armor "./${{ steps.values.outputs.binary-name }}"
+          export GPG_TTY=$(tty) 
+          go build -ldflags "$LDFLAGS" -o "./${{ steps.values.outputs.binary-name }}" ./cmd/main.go
+          stat "./${{ steps.values.outputs.binary-name }}"
+          gpg --detach-sign --armor "./${{ steps.values.outputs.binary-name }}"
 
       - name: Generate distributive directory name
         id: dist-dir

@@ -100,7 +100,7 @@ jobs:
         run: |
           go build -ldflags "$LDFLAGS" -o "./${{ steps.values.outputs.binary-name }}" ./cmd/main.go
           stat "./${{ steps.values.outputs.binary-name }}"
-          gpg --detach-sign --armor "./${{ steps.values.outputs.binary-name }}"
+          GPG_TTY=$(tty) gpg --detach-sign --armor "./${{ steps.values.outputs.binary-name }}"
 
       - name: Generate distributive directory name
         id: dist-dir

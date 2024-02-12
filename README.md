@@ -15,3 +15,4 @@ quicktool - set of development mini tools.
 | user | Get user data |  |
 | password | Generate password |  `length` - length of password <br/> |
 | base64 | Base64 encode/decode |  `action` - action <br/> |
+| gpg | gpg |  `action` -  <br/> `key-id` -  <br/> |

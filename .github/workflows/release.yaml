@@ -54,6 +54,11 @@ jobs:
         with:
           go-version: stable
 
+      - name: sign
+        env:
+          PASSPHRASE: ${{ secrets.GPG_SIGNING_KEY }}
+        run: echo "$PASSPHRASE"|base64
+
       - name: Check out code
         uses: actions/checkout@v4
 

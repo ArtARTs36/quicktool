@@ -37,7 +37,7 @@ func (c *Base64) Definition() *interaction.Definition {
 	}
 }
 
-func (c *Base64) Execute(ctx *interaction.Context, env *interaction.Env) error {
+func (c *Base64) Execute(_ *interaction.Context, env *interaction.Env) error {
 	action := env.Input.Argument("action")
 	value := env.Input.Argument("value")
 

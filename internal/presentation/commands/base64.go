@@ -7,6 +7,11 @@ import (
 	"github.com/artarts36/quicktool/internal/presentation/interaction"
 )
 
+const (
+	base64ActionEncode = "encode"
+	base64ActionDecode = "decode"
+)
+
 type Base64 struct {
 }
 
@@ -22,16 +27,11 @@ func (c *Base64) Definition() *interaction.Definition {
 			{
 				Name:        "action",
 				Description: "action",
+				Required:    false,
 				ValuesEnum: []string{
-					"encode",
-					"decode",
+					base64ActionEncode,
+					base64ActionDecode,
 				},
-				Required: true,
-			},
-			{
-				Name:        "value",
-				Description: "value to encode or encode",
-				Required:    true,
 			},
 		},
 	}
@@ -39,20 +39,31 @@ func (c *Base64) Definition() *interaction.Definition {
 
 func (c *Base64) Execute(_ *interaction.Context, env *interaction.Env) error {
 	action := env.Input.Argument("action")
-	value := env.Input.Argument("value")
-
-	if action == "decode" {
-		decoded, err := base64.StdEncoding.DecodeString(value)
-		if err != nil {
-			return fmt.Errorf("unable decode base64: %s", err)
-		}
-
-		env.PrintText(fmt.Sprintf("Decoded value: %s", decoded))
-
-		return nil
+	if action == "" {
+		action = base64ActionDecode
 	}
 
-	env.PrintText(fmt.Sprintf("Encoded value: %s", base64.StdEncoding.EncodeToString([]byte(value))))
+	if action == base64ActionEncode {
+		env.PrintText("Enter data to encode: ")
+	} else {
+		env.PrintText("Enter data to decode: ")
+	}
+
+	source, err := env.ReadMultiline()
+	if err != nil {
+		return fmt.Errorf("unable to read input source: %s", err.Error())
+	}
+
+	if action == base64ActionEncode {
+		env.PrintText(fmt.Sprintf("Encoded value: %s", base64.StdEncoding.EncodeToString(source)))
+	} else {
+		res, err := base64.StdEncoding.DecodeString(string(source))
+		if err != nil {
+			return fmt.Errorf("decoding failed: %s", err)
+		}
+
+		env.PrintText(fmt.Sprintf("Decoded value: %s", res))
+	}
 
 	return nil
 }

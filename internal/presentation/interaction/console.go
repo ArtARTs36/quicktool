@@ -2,8 +2,9 @@ package interaction
 
 import (
 	"fmt"
-	"github.com/DrSmithFr/go-console/input/option"
 	"strings"
+
+	"github.com/DrSmithFr/go-console/input/option"
 
 	goconsole "github.com/DrSmithFr/go-console"
 	"github.com/DrSmithFr/go-console/input/argument"

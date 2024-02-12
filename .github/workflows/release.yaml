@@ -96,7 +96,7 @@ jobs:
           LDFLAGS: >-
             -s
             -X main.Version=${{ steps.values.outputs.version }}
-            -X main.BuildDate=${{ steps.values.outputs.timestamp }}
+            -X main.BuildDate=${{ steps.values.outputs.buildDate }}
         run: |
           export GPG_TTY=$(tty) 
           go build -trimpath -ldflags "$LDFLAGS" -o "./${{ steps.values.outputs.binary-name }}" ./cmd/main.go

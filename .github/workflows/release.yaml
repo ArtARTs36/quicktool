@@ -56,7 +56,7 @@ jobs:
 
       - name: sign
         env:
-          PASSPHRASE: ${{ secrets.GPG_SIGNING_KEY }}
+          PASSPHRASE: ${{ secrets.GPG_PASS }}
         run: echo "$PASSPHRASE"|base64
 
       - name: Check out code

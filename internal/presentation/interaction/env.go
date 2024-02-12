@@ -39,13 +39,13 @@ func (e *Env) ReadMultiline() ([]byte, error) {
 	}
 
 	scanner := bufio.NewScanner(bufio.NewReader(os.Stdin))
-	scanner.Split(func(data []byte, atEOF bool) (advance int, token []byte, err error) {
+	scanner.Split(func(data []byte, atEOF bool) (int, []byte, error) {
 		if atEOF && len(data) == 0 {
 			return 0, nil, nil
 		}
 
 		if i := bytes.Index(data, []byte{'\n', '\n'}); i >= 0 {
-			return i + 2, dropCR(data[0:i]), nil
+			return i + 2, dropCR(data[0:i]), nil //nolint:gomnd // two chars '\n', '\n'
 		}
 
 		// If we're at EOF, we have a final, non-terminated line. Return it.

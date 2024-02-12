@@ -25,3 +25,7 @@ func (fs *LocalFileSystem) Exists(path string) (bool, error) {
 func (fs *LocalFileSystem) GetContent(path string) ([]byte, error) {
 	return os.ReadFile(path)
 }
+
+func (fs *LocalFileSystem) Save(path string, content []byte) error {
+	return os.WriteFile(path, content, 0700)
+}

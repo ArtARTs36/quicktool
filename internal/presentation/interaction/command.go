@@ -21,6 +21,7 @@ type Definition struct {
 	Aliases     []string
 	Description string
 	Args        []*DefinitionArg
+	Opts        []*DefinitionOpt
 }
 
 type DefinitionArg struct {
@@ -28,4 +29,10 @@ type DefinitionArg struct {
 	Description string
 	Required    bool
 	ValuesEnum  []string
+}
+
+type DefinitionOpt struct {
+	Name        string
+	ShortName   string
+	Description string
 }

@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/DrSmithFr/go-console/input/option"
+
 	goconsole "github.com/DrSmithFr/go-console"
 	"github.com/DrSmithFr/go-console/input/argument"
 )
@@ -42,6 +44,7 @@ func (c *Console) buildGoConsoleScripts(commands []Command) []*goconsole.Script 
 		def := command.Definition()
 
 		args := make([]goconsole.Argument, 0, len(def.Args))
+		opts := make([]goconsole.Option, 0, len(def.Opts))
 
 		for _, arg := range def.Args {
 			argVal := argument.Optional
@@ -66,6 +69,15 @@ func (c *Console) buildGoConsoleScripts(commands []Command) []*goconsole.Script 
 			})
 		}
 
+		for _, opt := range def.Opts {
+			opts = append(opts, goconsole.Option{
+				Name:        opt.Name,
+				Shortcut:    opt.ShortName,
+				Description: opt.Description,
+				Value:       option.Optional,
+			})
+		}
+
 		script := &goconsole.Script{
 			Name:        def.Name,
 			Description: def.Description,
@@ -73,6 +85,7 @@ func (c *Console) buildGoConsoleScripts(commands []Command) []*goconsole.Script 
 				return c.runCommand(command, script)
 			},
 			Arguments: args,
+			Options:   opts,
 		}
 
 		scripts = append(scripts, script)

@@ -17,5 +17,6 @@ func CreateList(
 		NewJSONPath(fs),
 		NewUser(),
 		NewPassword(),
+		NewBase64(fs),
 	}
 }

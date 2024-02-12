@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/DrSmithFr/go-console/input/option"
+
 	goconsole "github.com/DrSmithFr/go-console"
 	"github.com/DrSmithFr/go-console/input/argument"
 )
@@ -42,6 +44,7 @@ func (c *Console) buildGoConsoleScripts(commands []Command) []*goconsole.Script 
 		def := command.Definition()
 
 		args := make([]goconsole.Argument, 0, len(def.Args))
+		opts := make([]goconsole.Option, 0, len(def.Opts))
 
 		for _, arg := range def.Args {
 			argVal := argument.Optional
@@ -66,6 +69,10 @@ func (c *Console) buildGoConsoleScripts(commands []Command) []*goconsole.Script 
 			})
 		}
 
+		for _, opt := range def.Opts {
+			opts = append(opts, c.buildGoConsoleOption(opt))
+		}
+
 		script := &goconsole.Script{
 			Name:        def.Name,
 			Description: def.Description,
@@ -73,19 +80,29 @@ func (c *Console) buildGoConsoleScripts(commands []Command) []*goconsole.Script 
 				return c.runCommand(command, script)
 			},
 			Arguments: args,
+			Options:   opts,
 		}
 
 		scripts = append(scripts, script)
 
 		for _, alias := range def.Aliases {
-			scripts = append(scripts, &goconsole.Script{
+			aliasOpts := make([]goconsole.Option, 0, len(def.Opts))
+
+			for _, opt := range def.Opts {
+				aliasOpts = append(aliasOpts, c.buildGoConsoleOption(opt))
+			}
+
+			sc := &goconsole.Script{
 				Name:        alias,
 				Description: fmt.Sprintf("%s (alias to %s)", def.Description, def.Name),
 				Runner: func(script *goconsole.Script) goconsole.ExitCode {
 					return c.runCommand(command, script)
 				},
 				Arguments: args,
-			})
+				Options:   aliasOpts,
+			}
+
+			scripts = append(scripts, sc)
 		}
 	}
 
@@ -108,4 +125,13 @@ func (c *Console) runCommand(cmd Command, script *goconsole.Script) goconsole.Ex
 		return goconsole.ExitError
 	}
 	return goconsole.ExitSuccess
+}
+
+func (c *Console) buildGoConsoleOption(opt *DefinitionOpt) goconsole.Option {
+	return goconsole.Option{
+		Name:        opt.Name,
+		Shortcut:    opt.ShortName,
+		Description: opt.Description,
+		Value:       option.Optional,
+	}
 }

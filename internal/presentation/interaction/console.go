@@ -2,9 +2,8 @@ package interaction
 
 import (
 	"fmt"
-	"strings"
-
 	"github.com/DrSmithFr/go-console/input/option"
+	"strings"
 
 	goconsole "github.com/DrSmithFr/go-console"
 	"github.com/DrSmithFr/go-console/input/argument"
@@ -91,14 +90,28 @@ func (c *Console) buildGoConsoleScripts(commands []Command) []*goconsole.Script 
 		scripts = append(scripts, script)
 
 		for _, alias := range def.Aliases {
-			scripts = append(scripts, &goconsole.Script{
+			aliasOpts := make([]goconsole.Option, 0, len(def.Opts))
+
+			for _, opt := range def.Opts {
+				aliasOpts = append(aliasOpts, goconsole.Option{
+					Name:        opt.Name,
+					Shortcut:    opt.ShortName,
+					Description: opt.Description,
+					Value:       option.Optional,
+				})
+			}
+
+			sc := &goconsole.Script{
 				Name:        alias,
 				Description: fmt.Sprintf("%s (alias to %s)", def.Description, def.Name),
 				Runner: func(script *goconsole.Script) goconsole.ExitCode {
 					return c.runCommand(command, script)
 				},
 				Arguments: args,
-			})
+				Options:   aliasOpts,
+			}
+
+			scripts = append(scripts, sc)
 		}
 	}
 

@@ -34,3 +34,33 @@ func RangeFromString(value string) (*Range, error) {
 		To:   to,
 	}, nil
 }
+
+func (r *Range) Len() int {
+	return max(r.From, r.To) - min(r.From, r.To)
+}
+
+func (r *Range) IsDescending() bool {
+	return r.To < r.From
+}
+
+func (r *Range) Iterate(fn func(int) error) error {
+	if r.IsDescending() {
+		for i := r.From; i >= r.To; i-- {
+			err := fn(i)
+			if err != nil {
+				return err
+			}
+		}
+
+		return nil
+	}
+
+	for i := r.From; i <= r.To; i++ {
+		err := fn(i)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}

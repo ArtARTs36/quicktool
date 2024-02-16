@@ -116,7 +116,7 @@ func (c *Base64) decode(env *interaction.Env, source []byte, outputType, output 
 	}
 
 	if outputType == base64OutputStdout {
-		env.PrintText(fmt.Sprintf("Decoded value: %s", decoded))
+		env.PrintText(fmt.Sprintf("Decoded value: %q", decoded))
 
 		return nil
 	}

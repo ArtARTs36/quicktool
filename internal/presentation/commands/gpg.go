@@ -36,9 +36,9 @@ func (c *Gpg) Definition() *interaction.Definition {
 
 func (c *Gpg) Execute(ctx *interaction.Context, env *interaction.Env) error {
 	action := env.Input.Argument("action")
-	keyId := env.Input.Argument("key-id")
+	keyID := env.Input.Argument("key-id")
 	if action == "pk" {
-		cmd := exec.CommandContext(ctx.Context, "gpg", "--export-secret-key", "-a", keyId)
+		cmd := exec.CommandContext(ctx.Context, "gpg", "--export-secret-key", "-a", keyID)
 		res, err := cmd.Output()
 		if err != nil {
 			return err

@@ -31,6 +31,10 @@ type DefinitionArg struct {
 	ValuesEnum  []string
 }
 
+func (a *DefinitionArg) IsEnum() bool {
+	return len(a.ValuesEnum) > 0
+}
+
 type DefinitionOpt struct {
 	Name        string
 	ShortName   string

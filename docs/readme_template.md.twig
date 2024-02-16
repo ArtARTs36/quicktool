@@ -4,6 +4,6 @@ quicktool - set of development mini tools.
 
 ## Commands
 
-| Name           | Description           | Args           |
-|----------------|-----------------------|----------------|{% for command in commands %}
-| {{ command.Name }} | {{ command.Description }} | {% for arg in command.Args %} `{{ arg.Name }}` - {{ arg.Description }} <br/>{% endfor %} |{% endfor %}
+| Name           | Description           | Args                                                                                                                                                                  |
+|----------------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|{% for command in commands %}
+| {{ command.Name }} | {{ command.Description }} | {% for arg in command.Args %} `{{ arg.Name }}` - {{ arg.Description }}{% if arg.IsEnum %}[{% for v in arg.ValuesEnum %}{{ v }},{% endfor %}]{% endif %} <br/>{% endfor %} |{% endfor %}

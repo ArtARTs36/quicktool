@@ -19,5 +19,6 @@ func CreateList(
 		NewPassword(),
 		NewBase64(fs),
 		NewRange(),
+		NewGpg(),
 	}
 }

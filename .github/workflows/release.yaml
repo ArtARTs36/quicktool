@@ -1,16 +1,10 @@
 name: release
 
 on:
-  push:
-    branches:
-      - release
-  pull_request:
-
-#on:
-#  release: # Docs: <https://help.github.com/en/articles/events-that-trigger-workflows#release-event-release>
-#    types:
-#      - released
-#      - prereleased
+  release: # Docs: <https://help.github.com/en/articles/events-that-trigger-workflows#release-event-release>
+    types:
+      - released
+      - prereleased
 
 jobs:
   build:
@@ -135,19 +129,19 @@ jobs:
       - name: Pack distributive using zip
         if: matrix.archiver == 'zip'
         run: zip -r -q "${{ steps.dist-arch.outputs.name }}" "${{ steps.dist-dir.outputs.name }}"
-#
-#      - name: Upload artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: ${{ steps.dist-dir.outputs.name }}
-#          path: ${{ steps.dist-arch.outputs.name }}
-#          if-no-files-found: error
-#          retention-days: 30
-#
-#      - name: Upload binaries to release
-#        uses: svenstaro/upload-release-action@v2
-#        with:
-#          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: ${{ steps.dist-arch.outputs.name }}
-#          asset_name: ${{ steps.dist-arch.outputs.name }}
-#          tag: ${{ github.ref }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.dist-dir.outputs.name }}
+          path: ${{ steps.dist-arch.outputs.name }}
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.dist-arch.outputs.name }}
+          asset_name: ${{ steps.dist-arch.outputs.name }}
+          tag: ${{ github.ref }}

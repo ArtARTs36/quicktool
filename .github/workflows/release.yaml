@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    permissions: write-all
     name: Build for ${{ matrix.os }} (${{ matrix.arch }}, ${{ matrix.compiler }})
     runs-on: ubuntu-latest
     strategy:

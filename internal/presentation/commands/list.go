@@ -2,6 +2,7 @@ package commands
 
 import (
 	"github.com/artarts36/quicktool/internal/infrastructure/filesystem"
+	"github.com/artarts36/quicktool/internal/infrastructure/sh"
 	"github.com/artarts36/quicktool/internal/presentation/interaction"
 )
 
@@ -20,5 +21,6 @@ func CreateList(
 		NewBase64(fs),
 		NewRange(),
 		NewGpg(),
+		NewUntar(&sh.Tar{}),
 	}
 }

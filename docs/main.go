@@ -28,7 +28,7 @@ func main() {
 				}
 
 				return map[string]stick.Value{
-					"commands": commandDefinitions,
+					"sh": commandDefinitions,
 				}
 			},
 		},

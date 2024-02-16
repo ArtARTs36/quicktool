@@ -54,7 +54,7 @@ func (c *Console) buildGoConsoleScripts(commands []Command) []*goconsole.Script 
 			}
 
 			description := arg.Description
-			if len(arg.ValuesEnum) > 0 {
+			if arg.IsEnum() {
 				description = fmt.Sprintf(
 					"%s: value of [%s]",
 					description,
